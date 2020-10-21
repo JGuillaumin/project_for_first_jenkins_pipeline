@@ -25,6 +25,11 @@ pipeline {
                 sh 'echo "environment : ${GLOBAL_ENV_VAR} | ${LOCAL_ENV_VAR}"'
             }
         }
+        stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
         stage('Deploy') {
             agent { docker { image 'python:3.9' } }
             environment { LOCAL_ENV_VAR = '3' }
